@@ -1,4 +1,4 @@
-## RVFV Evolution Africa  
+**RVFV Evolution Africa** 
 Analysis workflow and supporting code for the manuscript:
 
 **“Evolutionary Dynamics and Molecular Adaptation of Rift Valley Fever Virus Across Human and Non-human Outbreaks in Africa.”**
