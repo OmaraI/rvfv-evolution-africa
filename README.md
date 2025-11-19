@@ -1,7 +1,7 @@
 ### RVFV Evolution in Africa 
 Analysis workflow and supporting code for the manuscript:
 
-**“Evolutionary Dynamics and Molecular Adaptation of Rift Valley Fever Virus Across Human and Non-human Outbreaks in Africa.”**
+**“Evolutionary Dynamics and Molecular Adaptation of Rift Valley fever virus across human and non-human outbreaks in Africa.”**
 
 This repository contains reproducible scripts, workflows, and datasets used to generate all mutation profiling, phylogenetic trees, temporal reconstructions, and selection pressure analyses for Rift Valley fever virus (RVFV) genomes (1940–2020).
 
