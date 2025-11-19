@@ -15,7 +15,7 @@ Rift Valley fever virus (RVFV) is an emerging zoonotic pathogen with a broad hos
 - Codon level selection pressure analysis using models (FUBAR, FEL, SLAC)  
 - Geographic and temporal mapping of adaptive mutations
 ---
-### Results
+#### Results
 
 The analyses identify seven nonsynonymous mutations, adaptive codons and host-specific selection signals that shape RVFV evolution across Africa (1940-2020)
 
