@@ -1,4 +1,4 @@
-**RVFV Evolution Africa** 
+## RVFV Evolution Africa 
 Analysis workflow and supporting code for the manuscript:
 
 **“Evolutionary Dynamics and Molecular Adaptation of Rift Valley Fever Virus Across Human and Non-human Outbreaks in Africa.”**
@@ -7,7 +7,7 @@ This repository contains reproducible scripts, workflows, and datasets used to g
 
 ---
 
-### 📌 Project Overview
+#### 📌 Project Overview
 
 Rift Valley fever virus (RVFV) is a zoonotic arbovirus with a broad host range and significant public health and veterinary impact across Africa. This project performs the first continental-scale analysis integrating:
 
@@ -21,4 +21,4 @@ The analyses identify seven nonsynonymous mutations, adaptive codons and host-sp
 
 ---
 
-## 🧬 Repository Structure
+#### 🧬 Repository Structure
