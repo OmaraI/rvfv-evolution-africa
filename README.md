@@ -7,7 +7,7 @@ This repository contains reproducible scripts, workflows, and datasets used to g
 
 #### 📌 Project Overview
 
-Rift Valley fever virus (RVFV) is a zoonotic arbovirus with a broad host range and significant public health and veterinary impact across Africa. This study performed the first continental wide analysis integrating:
+Rift Valley fever virus (RVFV) is an emerging zoonotic pathogen with a broad host range and significant public health and veterinary impact across Africa. This study performed the first continental wide analysis integrating:
 
 - Protein-coding mutation identification  
 - Comparative genomic diversity (Human,livestock, wildlife & vectors) 
