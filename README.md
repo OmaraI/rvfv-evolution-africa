@@ -8,10 +8,11 @@ This repository contains reproducible scripts, workflows, and outputs used to ge
 
 Rift Valley fever virus (RVFV) is an emerging zoonotic pathogen with a broad host range and significant public health and veterinary impact across Africa. This study performed the first continental wide analysis integrating:
 
-- Protein-coding mutation identification  
+- Identification of Protein coding mutations  
 - Comparative genomic diversity (Human,livestock, wildlife & vectors) 
-- Time-scaled phylogenetics to study transmission bottlenecks  
-- Codon level selection pressure analysis using models (FUBAR, FEL, SLAC)  
+- Time-scaled phylogenetics to study transmission bottlenecks
+- Ancestral state reconstruction  
+- Codon level selection pressure analysis using models 
 - Geographic and temporal mapping of adaptive mutations
 ---
 #### Results
