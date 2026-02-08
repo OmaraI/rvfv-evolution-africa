@@ -1,4 +1,4 @@
-Manuscript:**“Evolutionary dynamics and molecular adaptation of Rift Valley fever virus across human and non-human outbreaks in Africa (1940-2020)”**
+#### Manuscript:**“Evolutionary dynamics and molecular adaptation of Rift Valley fever virus across human and non-human outbreaks in Africa (1940-2020)”**
 ---
 #### Project Overview
 
