@@ -115,4 +115,4 @@ df = pd.DataFrame(records)
 output_path = "Angola_H-GD_Mutation_Summary.xlsx"
 df.to_excel(output_path, index=False)
 
-print(f"✅ Genome mutation summary written to '{output_path}'")
+print(f"Genome mutation summary written to '{output_path}'")
