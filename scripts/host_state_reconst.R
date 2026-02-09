@@ -161,6 +161,6 @@ sink(file.path(OUTDIR, "sessionInfo.txt"))
 print(sessionInfo())
 sink()
 
-message("✅ Done. Outputs written to: ", OUTDIR)
+message("Done. Outputs written to: ", OUTDIR)
                          
 
