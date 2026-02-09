@@ -8,11 +8,10 @@ library(ggplot2)
 library(stringr)
 library(patchwork)   # for side-by-side layout
 
-# ------------------------------------------------------------------------------
-# 1) Load data
-# ------------------------------------------------------------------------------
+# 1) Set the working directory
 setwd("~/Desktop/Manuscripts/Data/R-Work/")
 
+# Load data
 mutation_data <- read_csv("Combined-Mutation.csv")
 
 # Ensure numeric types and basic filtering
@@ -23,10 +22,9 @@ mutation_data <- mutation_data %>%
   ) %>%
   filter(!is.na(Country), !is.na(Year), !is.na(`Total Protein Mutations`))
 
-# ------------------------------------------------------------------------------
-# 2) HEATMAP (left)
-#    Geographic & temporal distribution of mean mutation burden
-# ------------------------------------------------------------------------------
+
+# HEATMAP (left)
+# Geographic & temporal distribution of mean mutation burden
 heatmap_data <- mutation_data %>%
   group_by(Country, Year) %>%
   summarise(Mean_Mutations = mean(`Total Protein Mutations`, na.rm = TRUE), .groups = "drop")
@@ -73,10 +71,10 @@ heatmap_plot <- ggplot(heatmap_data, aes(x = Year, y = Country, fill = Mean_Muta
     plot.margin  = margin(12, 12, 12, 12)
   )
 
-# ------------------------------------------------------------------------------
-# 3) WATERFALL (right)
+# -------------------------------------------------
+# WATERFALL (right)
 #    Country-level YoY changes and start/end totals
-# ------------------------------------------------------------------------------
+# -------------------------------------------------
 mutation_trends <- mutation_data %>%
   group_by(Country, Year) %>%
   summarise(Mean_Mutations = mean(`Total Protein Mutations`, na.rm = TRUE), .groups = "drop") %>%
@@ -184,18 +182,17 @@ waterfall_plot <- ggplot(waterfall_df) +
     plot.margin  = margin(10, 10, 10, 10)
   )
 
-# ------------------------------------------------------------------------------
-# 4) COMBINE (heatmap left, waterfall right)
-# ------------------------------------------------------------------------------
+# ------------------------------------------
+# COMBINE (heatmap left, waterfall right)
+# ------------------------------------------
 # widths control the space each plot takes; tweak as you like (e.g., c(1, 1.25))
 combined <- heatmap_plot + waterfall_plot +
   plot_layout(widths = c(2, 2)) &
   theme(legend.position = "right")  # keep legends right-aligned
 
-
 print(combined)
 
-# ------------------------------------------------------------------------------
-# 5) Save outputs
-# ------------------------------------------------------------------------------
+# -----------------------------------------
+# Save outputs
+# -----------------------------------------
 ggsave("Combined_Heatmap_Waterfall.pdf", plot = combined, width = 20, height = 8.5, dpi = 300)
