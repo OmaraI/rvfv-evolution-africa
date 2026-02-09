@@ -1,6 +1,6 @@
 ##### Figure 1: Spatiotemporal distribution of RVFV protein-coding mutations in Africa
-# COMBINED HEATMAP + WATERFALL 
-# Packages
+
+# Packages required
 library(readr)
 library(dplyr)
 library(tidyr)
