@@ -1,11 +1,11 @@
-###############################################################
-## Host-state reconstruction & spillover on RVFV M segment   ##
-## - Time-scaled tree (M segment)                            ##
-## - Ancestral host reconstruction (ER model)                ##
-## - Host→host transitions + network plot                    ##
+
+- Host-state reconstruction & spillover on RVFV M segment   
+- Time-scaled tree (M segment)                            
+- Ancestral host reconstruction (ER model)                
+- Host→host transitions + network plot                    
 ###############################################################
 
-## 0. Load packages ------------------------------------------------------------
+# Load packages ---
 suppressPackageStartupMessages({
   library(readr)
   library(dplyr)
@@ -15,18 +15,18 @@ suppressPackageStartupMessages({
   library(scales)    # for rescale()
 })
 
-## 1. User-editable paths (relative to repo root) ------------------------------
+# User-editable paths (relative to repo root) ---
 TREE_FILE <- "data/timetree_with_bootstrap.nexus"
 META_FILE <- "data/metadata.csv"
 OUTDIR    <- "outputs/host_state_M"
 
 dir.create(OUTDIR, showWarnings = FALSE, recursive = TRUE)
 
-## 2. Input checks -------------------------------------------------------------
+# Input checks ---
 stopifnot(file.exists(TREE_FILE))
 stopifnot(file.exists(META_FILE))
 
-## 3. Load time-scaled tree & metadata ----------------------------------------
+# Load time-scaled tree & metadata ---
 tree_bs  <- read.nexus(TREE_FILE)
 metadata <- read_csv(META_FILE, show_col_types = FALSE)
 
@@ -36,7 +36,7 @@ if (length(missing_cols) > 0) {
   stop("metadata.csv is missing required columns: ", paste(missing_cols, collapse = ", "))
 }
 
-## 4. Clean metadata: standardise Host, keep only M segment --------------------
+# Clean metadata: standardise Host, keep only M segment ---
 metadata_M <- metadata %>%
   mutate(
     Segment = toupper(Segment),
@@ -58,12 +58,12 @@ if (nrow(metadata_M) == 0) {
   stop("No rows remain after filtering for Segment == 'M' and valid Host categories.")
 }
 
-## 5. Prepare tree for ACE: root & resolve polytomies --------------------------
+# Prepare tree for ACE: root & resolve polytomies ---
 tree_fix <- tree_bs %>%
   midpoint.root() %>%
   multi2di()
 
-## 6. Prune tree to tips that have metadata -----------------------------------
+# Prune tree to tips that have metadata ---
 tips_to_keep <- intersect(tree_fix$tip.label, metadata_M$taxa)
 if (length(tips_to_keep) < 5) {
   stop("Too few matched tips between tree and metadata (n = ", length(tips_to_keep), "). Check taxa names.")
@@ -77,15 +77,15 @@ if (any(is.na(metadata_ord$taxa))) {
   stop("Metadata reordering failed: some pruned tree tips have no matching metadata row.")
 }
 
-## 7. Build tip state vector (host categories) ---------------------------------
+# Build tip state vector (host categories) ---
 tip_states <- factor(metadata_ord$Host)
 tip_states <- droplevels(tip_states)
 names(tip_states) <- tree_fix$tip.label
 
-## 8. Ancestral host reconstruction (equal-rates ER model) ---------------------
+# Ancestral host reconstruction (equal-rates ER model) ---
 host_ace <- ace(tip_states, tree_fix, type = "discrete", model = "ER")
 
-## 9. Get most likely host for each internal node ------------------------------
+# Get most likely host for each internal node ---
 internal_states <- apply(host_ace$lik.anc, 1, function(x) names(which.max(x)))
 ntips <- length(tree_fix$tip.label)
 
@@ -97,7 +97,7 @@ get_host_state <- function(node) {
   }
 }
 
-## 10. Build host→host transition table ----------------------------------------
+# Build host→host transition table ---
 edge_df <- as.data.frame(tree_fix$edge)
 colnames(edge_df) <- c("parent", "child")
 
@@ -115,11 +115,11 @@ spillover_into_human <- host_transition_table %>%
   filter(to_host == "human", from_host != "human", n > 0) %>%
   arrange(desc(n))
 
-## 11. Save transition tables ---------------------------------------------------
+# Save transition tables ---
 write_csv(host_transition_table, file.path(OUTDIR, "Host_Transitions_M_segment.csv"))
 write_csv(spillover_into_human, file.path(OUTDIR, "Spillover_to_Humans_M_segment.csv"))
 
-## 12. Plot host-to-host transition network -----------------------------------
+# Plot host-to-host transition network ---
 # Ensure fixed vertex ordering (even if some states absent)
 vertices <- data.frame(
   name  = c("human", "livestock", "wildlife", "vector"),
@@ -156,7 +156,7 @@ plot(
 )
 dev.off()
 
-## 13. Save session info (reproducibility) -------------------------------------
+# Save session info (reproducibility) ---
 sink(file.path(OUTDIR, "sessionInfo.txt"))
 print(sessionInfo())
 sink()
