@@ -225,9 +225,9 @@ p_region_hm <- ggplot(heatmap_data, aes(x = "Region", y = y, fill = Region)) +
     values = c(
       "East Africa"     = "#1B9E77",  # deep teal-green
       "West Africa"     = "#7570B3",  # muted violet
-      "Southern Africa" = "#8C7853",  # 🟤 dull brownish khaki
+      "Southern Africa" = "#8C7853",  # dull brownish khaki
       "Central Africa"  = "#E6AB02",  # ochre yellow
-      "North Africa"    = "#C2B280"   # 🏜️ desert beige / sand tone
+      "North Africa"    = "#C2B280"   # desert beige / sand tone
     )
   ) +
   theme_void() +
@@ -248,18 +248,18 @@ p_lineage_hm <- ggplot(heatmap_data, aes(x = "Lineage", y = y, fill = Lineage)) 
   scale_fill_manual(
     name = "Lineage",
     values = c(
-      "A" = "#8B715A",  # 🤎 warm taupe
+      "A" = "#8B715A",  # warm taupe
       "B" = "#377EB8",  # blue
       "C" = "#4DAF4A",  # green
       "D" = "#984EA3",  # purple
-      "E" = "#4169E1",  # 🔵 royal blue
+      "E" = "#4169E1",  # royal blue
       "F" = "#FFFF33",  # yellow
-      "G" = "#E97451",  # 🧱 burnt sienna  
+      "G" = "#E97451",  # burnt sienna  
       "H" = "#0A4C6A", # dark cyan
-      "I" = "#580F41",  # 🍆 aubergine
-      "K" = "#556B2F",  # 🫒 deep olive green
+      "I" = "#580F41",  # aubergine
+      "K" = "#556B2F",  # deep olive green
       "L" = "#8DA0CB",   # lavender
-      "N" = "#287C8E"   # 🟦 teal blue
+      "N" = "#287C8E"   # teal blue
     )
   ) +
   theme_void() +
