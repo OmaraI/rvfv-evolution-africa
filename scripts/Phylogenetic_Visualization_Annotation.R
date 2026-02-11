@@ -1,4 +1,9 @@
-# Time-scaled phylogenetic tree of RVFV M segment [Tree + Region + Lineage] + bootstraps
+# Phylogenetic Visualization and Metadata Annotation [RVFV M segment] 
+[Tree + Region + Lineage] + bootstraps
+
+	•	Mapping bootstrap values
+	•	Coloring tips by Host
+	•	Adding Region and Lineage heatmaps
 
 ## Load required libraries
 library(ggtree)
