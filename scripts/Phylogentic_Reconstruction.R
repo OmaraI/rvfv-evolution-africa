@@ -7,7 +7,7 @@
 
 ## R part
 # Set the Working directory
-setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/Monika/Nexus-Files/M")
+setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/Nexus-Files/M") # Update accordingly
 
 # Load libraries
 library(readr)
