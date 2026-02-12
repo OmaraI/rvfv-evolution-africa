@@ -1,4 +1,4 @@
-## Figure 2: Distribution of protein-coding mutations per isolate by country
+## Figure 2: Distribution of protein-coding mutations per isolate across countries
 
 # Set the working directory
 setwd("~/Desktop/Manuscripts/Data/R-Work/") # Adjust accordingly
@@ -10,13 +10,12 @@ library(ggplot2)
 library(stringr)
 
 # Read CSVs
-L_H  <- read_csv("L-H-Africa.csv") %>% mutate(Host = "human")
-L_NH <- read_csv("L-NH-Africa.csv")
-M_H  <- read_csv("M-H-Africa.csv") %>% mutate(Host = "human")
-M_NH <- read_csv("M-NH-Africa.csv")
-S_H  <- read_csv("S_H.csv")  %>% mutate(Host = "human")
-S_NH <- read_csv("S_NH.csv") %>% mutate(Host = "Non-human")
-
+L_NH <- read_csv("L-NH-Africa.csv") %>% mutate(Host = "Non-human")
+M_NH <- read_csv("M-NH-Africa.csv") %>% mutate(Host = "Non-human")
+S_H  <- read_csv("S_H.csv")         %>% mutate(Host = "Human")
+S_NH <- read_csv("S_NH.csv")        %>% mutate(Host = "Non-human")
+L_H  <- read_csv("L-H-Africa.csv")  %>% mutate(Host = "Human")
+M_H  <- read_csv("M-H-Africa.csv")  %>% mutate(Host = "Human")
 
 # Combine & clean (assumes L_H, L_NH, M_H, M_NH, S_H, S_NH)
 mutation_data <- bind_rows(L_H, L_NH, M_H, M_NH, S_H, S_NH) %>%
@@ -28,12 +27,8 @@ mutation_data <- bind_rows(L_H, L_NH, M_H, M_NH, S_H, S_NH) %>%
   ) %>%
   filter(!is.na(`Total Protein Mutations`), !is.na(Country))
 
-
-# Save the mutation data
+# Save/Load
 write_csv(mutation_data, "Combined-Mutation.csv")
-
-# Load the combined mutation dataset
-mutation_data <- read_csv("Combined-Mutation.csv")
 
 ## Box-plot:
 # Boxplot by Country (y-axis starts at 0, countries alphabetical)
@@ -66,4 +61,4 @@ p_box <- ggplot(
   scale_y_continuous(expand = expansion(mult = c(0.02, 0.05)))
 
 print(p_box)
-ggsave("Boxplot_Mutation_Burden_By_Country.pdf", p_box, width = 10, height = 6, dpi = 300)
+ggsave("Boxplot_Mutation_By_Country.pdf", p_box, width = 10, height = 6, dpi = 300)
