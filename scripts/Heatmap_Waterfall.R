@@ -1,4 +1,4 @@
-## Figure 1: Spatiotemporal distribution of RVFV protein-coding mutations in Africa
+## Spatiotemporal distribution of RVFV protein-coding mutations in Africa
 
 # Packages required
 library(readr)
