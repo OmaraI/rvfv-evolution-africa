@@ -1,4 +1,4 @@
-### Phylogentic Inference/Reconstruction:RVFV M segment 
+### Phylogentic Inference:RVFV M segment 
 # Tools needed:
 - MAFFT  
 - trimAl
