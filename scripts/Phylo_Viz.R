@@ -19,7 +19,7 @@ library(patchwork)
 library(phytools)
 
 ## Set working directory (adjust as needed)
-setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/Nexus-Files/M/Bootstrap/")
+setwd("~/IsaacOmara/Desktop/Manuscripts/Data/R-Work/Nexus-Files/M/Bootstrap/") # Adjust
 
 # Paths (adjust if needed)
 iqtree_file <- "M_all.treefile"
@@ -72,7 +72,7 @@ dir.create("treetime_M", showWarnings = FALSE)  # ensure folder exists
 out_with_bs <- file.path(getwd(), "treetime_M", "timetree_with_bootstrap.nexus")
 write.nexus(t_tt, file = out_with_bs)
 
-cat("✅ Wrote:", out_with_bs, "\n")
+cat("Wrote:", out_with_bs, "\n")
 
 
 ## Read input data
