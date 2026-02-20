@@ -1,5 +1,5 @@
 
-## RVFV Statistical Analysis: Descriptive statistics for all countries
+## Descriptive statistics for all countries
 
 # Load libraries
 library(dplyr)
