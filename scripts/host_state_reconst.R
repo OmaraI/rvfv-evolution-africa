@@ -3,7 +3,6 @@
 - Time-scaled tree [M segment]                            
 - Ancestral host reconstruction [ER model]               
 - Host→host transitions + network plot                    
-########################################################
 
 # Load packages ---
 suppressPackageStartupMessages({
