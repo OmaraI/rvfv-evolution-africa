@@ -1,7 +1,7 @@
 
-- Host-state reconstruction & spillover on RVFV M segment   
-- Time-scaled tree (M segment)                            
-- Ancestral host reconstruction (ER model)                
+## HOST-STATE RECONSTRUCTION & SPILLOVER ANALYSIS [RVFV M segment]   
+- Time-scaled tree [M segment]                            
+- Ancestral host reconstruction [ER model]               
 - Host→host transitions + network plot                    
 ########################################################
 
