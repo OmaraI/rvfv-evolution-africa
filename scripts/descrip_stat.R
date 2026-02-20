@@ -47,7 +47,7 @@ print(kw_test)
 pairwise_wilcox <- data %>%
   pairwise_wilcox_test(
     `Total Protein Mutations` ~ Country,
-    p.adjust.method = "BH"   # Benjamini-Hochberg correction
+    p.adjust.method = "BH"   
   )
 
 print(pairwise_wilcox)
