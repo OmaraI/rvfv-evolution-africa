@@ -1,11 +1,11 @@
-# Phylogenetic Visualization and Metadata Annotation [RVFV M segment] 
+## Phylogenetic Visualization and Metadata Annotation [RVFV M segment] 
 [Tree + Region + Lineage] + bootstraps
 
-	•	Mapping bootstrap values
-	•	Coloring tips by Host
-	•	Adding Region and Lineage heatmaps
+- Mapping bootstrap values
+- Coloring tips by Host
+- Adding Region and Lineage heatmaps
 
-## Load required libraries
+## Load libraries
 library(ggtree)
 library(treeio)
 library(tidytree)
