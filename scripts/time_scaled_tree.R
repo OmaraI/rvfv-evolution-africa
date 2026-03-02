@@ -1,9 +1,10 @@
 ### Phylogentic Inference:RVFV M segment 
+
 # Tools needed:
-- MAFFT  
-- trimAl
-- IQ-TREE
-- TreeTime
+- MAFFT    # Multiple Sequence Alignment
+- trimAl   # trims poorly aligned regions
+- IQ-TREE  # Maximum likelihood phylogenetic tree inference
+- TreeTime # time scaled phylogenetic reconstruction
 
 ## R part
 # Set the Working directory
