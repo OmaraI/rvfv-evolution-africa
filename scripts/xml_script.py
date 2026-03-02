@@ -11,11 +11,11 @@ African countries and outbreak periods. For each sequence, it extracts:
 - Counts of Gn and Gc mutations based on amino-acid position
 - Segment and gene annotation
 
-# Country, host, and sampling year were harmonized across datasets during
+# Country, host and sampling year were harmonized across datasets during
 post-processing in R to generate the final continent-wide mutation summary used
 in downstream analyses.
 
-######## Python script #######
+## Python script ##
   
 import xml.etree.ElementTree as ET
 import pandas as pd
