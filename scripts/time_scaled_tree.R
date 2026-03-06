@@ -1,5 +1,6 @@
-### Phylogentic Inference:RVFV M segment 
+### Phylogentic Inference:
 
+RVFV M segment 
 # Tools needed:
 - MAFFT    # Multiple Sequence Alignment
 - trimAl   # trims poorly aligned regions
@@ -120,3 +121,6 @@ meta_filtered <- meta %>% filter(taxa %in% kept)
 write_csv(meta_filtered, "metadata.filtered.csv")
 
 cat("Final M metadata rows:", nrow(meta_filtered), "\n")
+
+
+
