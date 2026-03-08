@@ -1,5 +1,3 @@
-## Violin + Boxplot: Distribution of Protein-Coding Mutations by Segment and Host 
-
 # Libraries
 suppressPackageStartupMessages({
   library(readr)
