@@ -19,5 +19,5 @@ The analyses identify seven nonsynonymous mutations, adaptive codons and host-sp
 
 ---
 #### Pipeline used in this manuscript 
-The procedue for installation and usage was obtained from Juma et al, https://github.com/ajodeh-juma/rvfvtyping
+The procedure for installation and usage was obtained from Juma et al, https://github.com/ajodeh-juma/rvfvtyping and other custom scripts used are available in this repo. 
 
