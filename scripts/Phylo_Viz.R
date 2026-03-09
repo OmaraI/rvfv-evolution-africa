@@ -1,4 +1,4 @@
-## Phylogenetic Visualization /Metadata Annotation 
+## Phylogenetic Visualization /Metadata Annotation
 
 ## RVFV M segment
 ## Load libraries
