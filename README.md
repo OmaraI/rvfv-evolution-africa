@@ -8,7 +8,7 @@ Rift Valley fever virus (RVFV) is an emerging zoonotic pathogen with a broad hos
 - Comparative genomic diversity (Human,livestock, wildlife & vectors) 
 - Time-scaled phylogenetics to study transmission bottlenecks
 - Ancestral state reconstruction  
-- Codon level selection pressure analysis using models 
+- Codon level selection pressure analysis
 - Spatiotemporal distribution of adaptive mutations
 ---
 This repository contains reproducible scripts, workflows and outputs from the study.
