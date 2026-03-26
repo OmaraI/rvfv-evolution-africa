@@ -15,7 +15,7 @@ This repository contains reproducible scripts, workflows and outputs from the st
 
 #### Results
 
-The analyses identify seven nonsynonymous mutations, adaptive codons and host-specific selection signals that shape RVFV evolution across Africa (1940-2020)
+The analyses identify seven nonsynonymous mutations, adaptive codons and host-specific selection signals that shape RVFV evolution across Africa (1944-2022)
 
 ---
 #### Pipeline used in this manuscript 
