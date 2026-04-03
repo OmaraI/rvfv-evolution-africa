@@ -618,9 +618,8 @@ write.nexus(t_tt, file = out_with_bs)
 
 cat("Wrote:", out_with_bs, "\n")
 
-# -------------------------------#
-# 2. Read tree + metadata        #
-# -------------------------------#
+
+#### 2. Read tree + metadata
 
 tree     <- read.nexus("treetime_S/timetree_with_bootstrap.nexus")
 metadata <- read_csv("../metadata.filtered.csv", show_col_types = FALSE)
@@ -678,9 +677,8 @@ metadata <- metadata %>%
 mrsd <- tryCatch(max(metadata$date, na.rm = TRUE), error = function(e) NA)
 if (is.na(mrsd)) mrsd <- as.Date("2020-06-15")
 
-# -------------------------------#
-# 3. Plot time-scaled tree       #
-# -------------------------------#
+
+##### 3. Plot time-scaled tree     
 
 ## Host colors (distinct, circular points)
 host_cols <- c(
@@ -745,9 +743,8 @@ p_host <- p_host_base %<+% metadata +
     axis.text.x     = element_text(size = 10, face = "bold")
   )
 
-# -------------------------------#
-# 4. Region + lineage heatmaps   #
-# -------------------------------#
+
+#### 4. Region + lineage heatmaps   
 
 ## Align metadata with tree order
 tree_ordered_metadata <- metadata[match(tree$tip.label, metadata$taxa), ]
@@ -813,9 +810,8 @@ p_lineage_hm <- ggplot(heatmap_data, aes(x = "Lineage", y = y, fill = Lineage)) 
     axis.ticks.y    = element_blank()
   )
 
-# -------------------------------#
-# 5. Combine & save              #
-# -------------------------------#
+
+#### 5. Combine & save              
 
 combined_plot <- p_host + p_region_hm + p_lineage_hm +
   plot_layout(widths = c(0.7, 0.15, 0.15))
