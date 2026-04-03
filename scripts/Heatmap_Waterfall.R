@@ -71,10 +71,8 @@ heatmap_plot <- ggplot(heatmap_data, aes(x = Year, y = Country, fill = Mean_Muta
     plot.margin  = margin(12, 12, 12, 12)
   )
 
-# -------------------------------------------------
-# WATERFALL (right)
+#### WATERFALL (right)
 #    Country-level YoY changes and start/end totals
-# -------------------------------------------------
 mutation_trends <- mutation_data %>%
   group_by(Country, Year) %>%
   summarise(Mean_Mutations = mean(`Total Protein Mutations`, na.rm = TRUE), .groups = "drop") %>%
@@ -182,9 +180,8 @@ waterfall_plot <- ggplot(waterfall_df) +
     plot.margin  = margin(10, 10, 10, 10)
   )
 
-# ------------------------------------------
-# COMBINE (heatmap left, waterfall right)
-# ------------------------------------------
+####### COMBINE (heatmap left, waterfall right)
+#
 # widths control the space each plot takes; tweak as you like (e.g., c(1, 1.25))
 combined <- heatmap_plot + waterfall_plot +
   plot_layout(widths = c(2, 2)) &
@@ -192,7 +189,5 @@ combined <- heatmap_plot + waterfall_plot +
 
 print(combined)
 
-# -----------------------------------------
-# Save outputs
-# -----------------------------------------
+###### Save outputs
 ggsave("Combined_Heatmap_Waterfall.pdf", plot = combined, width = 20, height = 8.5, dpi = 300)
