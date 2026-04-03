@@ -62,7 +62,7 @@ ref_row <- tibble(
 
 meta_M <- bind_rows(meta_M, ref_row) %>% distinct(taxa, .keep_all = TRUE)
 
-# Write metadata + TreeTime helpers --------
+# Write metadata + TreeTime helpers 
 write_csv(meta_M, "metadata.csv")
 
 write.table(meta_M %>% select(name = taxa, date),
@@ -140,7 +140,7 @@ library(tibble)
 human  <- read_csv("sequences.csv",  show_col_types = FALSE)
 animal <- read_csv("sequences1.csv", show_col_types = FALSE)
 
-# Merge, filter L, standardize Host, build date & taxa --------
+# Merge, filter L, standardize Host, build date & taxa 
 meta_L <- bind_rows(human, animal) %>%
   filter(toupper(Segment) == "L") %>%
   mutate(
@@ -182,7 +182,7 @@ ref_row <- tibble(
 
 meta_L <- bind_rows(meta_L, ref_row) %>% distinct(taxa, .keep_all = TRUE)
 
-# Write metadata + TreeTime helpers --------
+# Write metadata + TreeTime helpers 
 write_csv(meta_L, "metadata.csv")
 
 write.table(meta_L %>% select(name = taxa, date),
@@ -230,7 +230,7 @@ treetime --tree L_all.treefile \
 --outdir treetime_L \
 --gtr JC69
 
-## UPDATE Metadata 
+#### UPDATE Metadata 
 
 meta <- read_csv("metadata.csv", show_col_types = FALSE)
 kept <- readr::read_lines("kept_ids.txt")
@@ -274,7 +274,7 @@ meta_S <- bind_rows(human, animal) %>%
   filter(!is.na(accession), !is.na(date)) %>%
   distinct(taxa, .keep_all = TRUE)
 
-# Add a single S reference (edit date if you know the true reference date) --------
+# Add a single S reference (edit date if you know the true reference date) 
 ref_row <- tibble(
   taxa       = "NC_014395|1977-06-15",
   accession  = "NC_014395",
@@ -290,7 +290,7 @@ ref_row <- tibble(
 
 meta_S <- bind_rows(meta_S, ref_row) %>% distinct(taxa, .keep_all = TRUE)
 
-# Write metadata + TreeTime helpers --------
+# Write metadata + TreeTime helpers 
 write_csv(meta_S, "metadata.csv")
 
 write.table(meta_S %>% select(name = taxa, date),
