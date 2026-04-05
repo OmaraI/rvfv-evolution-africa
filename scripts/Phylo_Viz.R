@@ -25,10 +25,10 @@ timetree_file <- "../treetime_M/timetree.nexus"
 t_iq <- read.tree(iqtree_file)            # has bootstrap supports in node.label
 t_tt <- read.nexus(timetree_file)         # time-scaled (likely no supports)
 
-# Sanity: same tips?
+# Same tips?
 stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
-# Optional: root both the same way if they differ (often not needed)
+# Optional: root both the same way if they differ 
 # t_iq <- midpoint.root(t_iq)
 # t_tt <- midpoint.root(t_tt)
 
@@ -309,7 +309,7 @@ timetree_file <- "../treetime_L/timetree.nexus"  # time-scaled tree (no support)
 t_iq <- read.tree(iqtree_file)        # has bootstrap supports in node.label
 t_tt <- read.nexus(timetree_file)     # time-scaled (likely no supports)
 
-# Sanity: same tips?
+# Same tips?
 stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
 # Parse support from IQ-TREE node labels (handles "95" or "95/0.98" formats)
@@ -578,7 +578,7 @@ timetree_file <- "../treetime_S/timetree.nexus"  # time-scaled tree (no support)
 t_iq <- read.tree(iqtree_file)        # has bootstrap supports in node.label
 t_tt <- read.nexus(timetree_file)     # time-scaled (likely no supports)
 
-# Sanity check: same tips
+# Same tips
 stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
 # Parse support from IQ-TREE node labels (handles "95" or "95/0.98" formats)
