@@ -1,0 +1,13 @@
+from_host,to_host,n
+human,human,178
+livestock,livestock,96
+livestock,human,16
+vector,vector,16
+livestock,vector,9
+vector,livestock,6
+human,livestock,4
+livestock,wildlife,3
+vector,human,3
+human,vector,2
+wildlife,wildlife,2
+vector,wildlife,1
