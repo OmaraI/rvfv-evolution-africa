@@ -1,7 +1,7 @@
-## Phylogenetic Visualization /Metadata Annotation
+## Phylogenetic Visualization/Annotation
 
-## RVFV M segment
-## Load libraries
+
+## Load required libraries
 library(ggtree)
 library(treeio)
 library(tidytree)
@@ -15,27 +15,27 @@ library(patchwork)
 library(phytools)
 
 ## Set working directory (adjust as needed)
-setwd("~/IsaacOmara/RVFV_Work/") # Adjust
+setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/")
 
-# Paths 
+
+# Paths (adjust if needed)
 iqtree_file <- "M_all.treefile"
 timetree_file <- "../treetime_M/timetree.nexus"
 
 # Read trees
 t_iq <- read.tree(iqtree_file)            # has bootstrap supports in node.label
-t_tt <- read.nexus(timetree_file)         # time-scaled (likely no supports)
+t_tt <- read.nexus(timetree_file)         
 
-# Same tips?
-stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
-# Optional: root both the same way if they differ 
+
+# Optional: 
 # t_iq <- midpoint.root(t_iq)
 # t_tt <- midpoint.root(t_tt)
 
-# Parse support from IQ-TREE node labels (handles "95" or "95/0.98" formats)
+# Parse support from IQ-TREE node labels 
 parse_support <- function(x) {
   if (is.null(x)) return(rep(NA_real_, 0))
-  y <- sub("^\\s*([0-9]+).*$", "\\1", x)       # take leading digits
+  y <- sub("^\\s*([0-9]+).*$", "\\1", x)      
   suppressWarnings(as.numeric(y))
 }
 iq_bs <- parse_support(t_iq$node.label)
@@ -99,7 +99,7 @@ if (!"name" %in% names(metadata)) {
 metadata <- metadata %>%
   mutate(
     Host = case_when(
-      Host %in% c("Human", "Homo sapiens") ~ "Homo sapiens",
+      Host %in% c("Human", "Homo sapiens") ~ "Human",
       Host == "Livestock" ~ "Livestock",
       Host == "Wildlife"  ~ "Wildlife",
       Host == "Vector"    ~ "Vector",
@@ -133,7 +133,7 @@ p_base <- ggtree(tree, mrsd = mrsd) + theme_tree2()
 
 ## Host colors (distinct, circular points)
 host_cols <- c(
-  "Homo sapiens" = "#D55E00",  # orange
+  "Human" = "#D55E00",  # orange
   "Livestock"    = "#0072B2",  # blue
   "Wildlife"     = "#009E73",  # green
   "Vector"       = "#CC79A7"   # magenta
@@ -160,7 +160,7 @@ message("Internal nodes with numeric support in plotted tree: ",
 
 # Host palette
 host_cols <- c(
-  "Homo sapiens" = "#D55E00",
+  "Human" = "#D55E00",
   "Livestock"    = "#0072B2",
   "Wildlife"     = "#009E73",
   "Vector"       = "#CC79A7"
@@ -191,12 +191,12 @@ p_host <- p_host_base %<+% metadata +
     expand = expansion(mult = c(0.02, 0.02))
   ) +
   labs(
-    title = "Host-Associated Phylogenetic Structure of RVFV M Segment",
+   # title = "Host-Associated Phylogenetic Structure of RVFV M Segment",
     x = "Year", y = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
-    legend.position = "right",
+    legend.position = "left",
     legend.title = element_text(face = "bold"),
     legend.key.size = unit(0.9, "lines"),
     panel.grid = element_blank(),
@@ -224,11 +224,11 @@ p_region_hm <- ggplot(heatmap_data, aes(x = "Region", y = y, fill = Region)) +
   scale_fill_manual(
     name = "Region",
     values = c(
-      "East Africa"     = "#1B9E77",  # deep teal-green
-      "West Africa"     = "#7570B3",  # muted violet
-      "Southern Africa" = "#8C7853",  # dull brownish khaki
-      "Central Africa"  = "#E6AB02",  # ochre yellow
-      "North Africa"    = "#C2B280"   # desert beige / sand tone
+      "East Africa"     = "#1B9E77",  #deep teal-green
+      "West Africa"     = "#7570B3",  #muted violet
+      "Southern Africa" = "#8C7853",  #dull brownish khaki
+      "Central Africa"  = "#E6AB02",  #ochre yellow
+      "North Africa"    = "#C2B280"   #desert beige / sand tone
     )
   ) +
   theme_void() +
@@ -249,18 +249,18 @@ p_lineage_hm <- ggplot(heatmap_data, aes(x = "Lineage", y = y, fill = Lineage)) 
   scale_fill_manual(
     name = "Lineage",
     values = c(
-      "A" = "#8B715A",  # warm taupe
-      "B" = "#377EB8",  # blue
-      "C" = "#4DAF4A",  # green
-      "D" = "#984EA3",  # purple
-      "E" = "#4169E1",  # royal blue
-      "F" = "#FFFF33",  # yellow
-      "G" = "#E97451",  # burnt sienna  
-      "H" = "#0A4C6A", # dark cyan
-      "I" = "#580F41",  # aubergine
-      "K" = "#556B2F",  # deep olive green
-      "L" = "#8DA0CB",   # lavender
-      "N" = "#287C8E"   # teal blue
+      "A" = "#8B715A",  #warm taupe
+      "B" = "#377EB8",  #blue
+      "C" = "#4DAF4A",  #green
+      "D" = "#984EA3",  #purple
+      "E" = "#4169E1",  #royal blue
+      "F" = "#FFFF33",  #yellow
+      "G" = "#E97451",  #burnt sienna  
+      "H" = "#0A4C6A", #dark cyan
+      "I" = "#580F41",  #aubergine
+      "K" = "#556B2F",  #deep olive green
+      "L" = "#8DA0CB",   #lavender
+      "N" = "#287C8E"   #teal blue
     )
   ) +
   theme_void() +
@@ -289,33 +289,45 @@ ggsave("M_combined_time_tree_regions.png",
        plot = combined_plot, width = 16, height = 10,
        units = "in", dpi = 600, bg = "white")
 
-## (Opt:Region × Lineage frequency summary
+## (Optional) Region × Lineage frequency summary
 region_lineage_summary <- metadata %>%
   count(Region, Lineage) %>%
   arrange(Region, desc(n))
 write_csv(region_lineage_summary, "Region_Lineage_summary.csv")
 
 
-##################### RVFV L segment ################
 
-## Set the working directory
-setwd("~/IsaacOmara/RVFV_Work/")
+############## RVFV L segment #######
+
+## Load required libraries
+library(ggtree)
+library(treeio)
+library(tidytree)
+library(ape)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(viridis)
+library(patchwork)
+library(phytools)
+
+## Set working directory (adjust as needed)
+setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/")
 
 # Paths 
 iqtree_file   <- "L_all.treefile"             # ML tree with bootstrap
-timetree_file <- "../treetime_L/timetree.nexus"  # time-scaled tree (no support)
+timetree_file <- "../treetime_L/timetree.nexus"  
 
 # Read trees
 t_iq <- read.tree(iqtree_file)        # has bootstrap supports in node.label
-t_tt <- read.nexus(timetree_file)     # time-scaled (likely no supports)
+t_tt <- read.nexus(timetree_file)     
 
-# Same tips?
-stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
-# Parse support from IQ-TREE node labels (handles "95" or "95/0.98" formats)
+# Parse support from IQ-TREE node labels 
 parse_support <- function(x) {
   if (is.null(x)) return(rep(NA_real_, 0))
-  y <- sub("^\\s*([0-9]+).*$", "\\1", x)       # take leading digits
+  y <- sub("^\\s*([0-9]+).*$", "\\1", x)       
   suppressWarnings(as.numeric(y))
 }
 iq_bs <- parse_support(t_iq$node.label)
@@ -378,7 +390,7 @@ if (!"name" %in% names(metadata)) {
 metadata <- metadata %>%
   mutate(
     Host = case_when(
-      Host %in% c("Human", "Homo sapiens") ~ "Homo sapiens",
+      Host %in% c("Human", "Homo sapiens") ~ "Human",
       Host == "Livestock"                  ~ "Livestock",
       Host == "Wildlife"                   ~ "Wildlife",
       Host == "Vector"                     ~ "Vector",
@@ -412,7 +424,7 @@ p_base <- ggtree(tree, mrsd = mrsd) + theme_tree2()
 
 ## Host colors (distinct, circular points)
 host_cols <- c(
-  "Homo sapiens" = "#D55E00",  # orange
+  "Human" = "#D55E00",  # orange
   "Livestock"    = "#0072B2",  # blue
   "Wildlife"     = "#009E73",  # green
   "Vector"       = "#CC79A7"   # magenta
@@ -462,12 +474,12 @@ p_host <- p_host_base %<+% metadata +
     expand = expansion(mult = c(0.02, 0.02))
   ) +
   labs(
-    title = "Host-Associated Phylogenetic Structure of RVFV L Segment",
+   # title = "Host-Associated Phylogenetic Structure of RVFV L Segment",
     x = "Year", y = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
-    legend.position = "right",
+    legend.position = "left",
     legend.title    = element_text(face = "bold"),
     legend.key.size = unit(0.9, "lines"),
     panel.grid      = element_blank(),
@@ -563,25 +575,38 @@ region_lineage_summary <- metadata %>%
   arrange(Region, desc(n))
 write_csv(region_lineage_summary, "Region_Lineage_summary_L.csv")
 
+
 ######## RVFV S segment
 
-## Set working directory 
-setwd("~/IsaacOmara/RVFV_Work/")
+## Load required libraries
+library(ggtree)
+library(treeio)
+library(tidytree)
+library(ape)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(viridis)
+library(patchwork)
+library(phytools)
 
-# Paths 
+## Set working directory (adjust as needed)
+setwd("/Users/IsaacOmara/Desktop/Manuscripts/Data/R-Work/")
+
+# Paths (adjust if needed)
 iqtree_file   <- "S_all.treefile"                # ML tree with bootstrap
-timetree_file <- "../treetime_S/timetree.nexus"  # time-scaled tree (no support)
+timetree_file <- "../treetime_S/timetree.nexus"  
 
-## 1. Read trees + map support #
+## 1. Read trees + map support    
+
 
 # Read trees
 t_iq <- read.tree(iqtree_file)        # has bootstrap supports in node.label
-t_tt <- read.nexus(timetree_file)     # time-scaled (likely no supports)
+t_tt <- read.nexus(timetree_file)    
 
-# Same tips
-stopifnot(setequal(t_iq$tip.label, t_tt$tip.label))
 
-# Parse support from IQ-TREE node labels (handles "95" or "95/0.98" formats)
+# Parse support from IQ-TREE node labels 
 parse_support <- function(x) {
   if (is.null(x)) return(rep(NA_real_, 0))
   y <- sub("^\\s*([0-9]+).*$", "\\1", x)       # take leading digits
@@ -619,7 +644,8 @@ write.nexus(t_tt, file = out_with_bs)
 cat("Wrote:", out_with_bs, "\n")
 
 
-#### 2. Read tree + metadata
+## 2. Read tree + metadata        
+
 
 tree     <- read.nexus("treetime_S/timetree_with_bootstrap.nexus")
 metadata <- read_csv("../metadata.filtered.csv", show_col_types = FALSE)
@@ -648,7 +674,7 @@ if (!"name" %in% names(metadata)) {
 metadata <- metadata %>%
   mutate(
     Host = case_when(
-      Host %in% c("Human", "Homo sapiens") ~ "Homo sapiens",
+      Host %in% c("Human", "Homo sapiens") ~ "Human",
       Host == "Livestock"                  ~ "Livestock",
       Host == "Wildlife"                   ~ "Wildlife",
       Host == "Vector"                     ~ "Vector",
@@ -678,11 +704,11 @@ mrsd <- tryCatch(max(metadata$date, na.rm = TRUE), error = function(e) NA)
 if (is.na(mrsd)) mrsd <- as.Date("2020-06-15")
 
 
-##### 3. Plot time-scaled tree     
+# 3. Plot time-scaled tree       #
 
 ## Host colors (distinct, circular points)
 host_cols <- c(
-  "Homo sapiens" = "#D55E00",  # orange
+  "Human" = "#D55E00",  # orange
   "Livestock"    = "#0072B2",  # blue
   "Wildlife"     = "#009E73",  # green
   "Vector"       = "#CC79A7"   # magenta
@@ -727,12 +753,12 @@ p_host <- p_host_base %<+% metadata +
     expand = expansion(mult = c(0.02, 0.02))
   ) +
   labs(
-    title = "Host-Associated Phylogenetic Structure of RVFV S Segment",
+   # title = "Host-Associated Phylogenetic Structure of RVFV S Segment",
     x = "Year", y = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
-    legend.position = "right",
+    legend.position = "left",
     legend.title    = element_text(face = "bold"),
     legend.key.size = unit(0.9, "lines"),
     panel.grid      = element_blank(),
@@ -744,7 +770,7 @@ p_host <- p_host_base %<+% metadata +
   )
 
 
-#### 4. Region + lineage heatmaps   
+# 4. Region + lineage heatmaps   #
 
 ## Align metadata with tree order
 tree_ordered_metadata <- metadata[match(tree$tip.label, metadata$taxa), ]
@@ -811,7 +837,8 @@ p_lineage_hm <- ggplot(heatmap_data, aes(x = "Lineage", y = y, fill = Lineage)) 
   )
 
 
-#### 5. Combine & save              
+## 5. Combine & save              
+
 
 combined_plot <- p_host + p_region_hm + p_lineage_hm +
   plot_layout(widths = c(0.7, 0.15, 0.15))
@@ -826,8 +853,8 @@ ggsave("S_combined_time_tree_regions.png",
        plot = combined_plot, width = 16, height = 10,
        units = "in", dpi = 600, bg = "white")
 
-## (Opt: Region × Lineage frequency summary
+## (Optional) Region × Lineage frequency summary
 region_lineage_summary <- metadata %>%
   count(Region, Lineage) %>%
   arrange(Region, desc(n))
-write_csv(region_lineage_summary, "Region_Lineage_summary_S.csv")              
+write_csv(region_lineage_summary, "Region_Lineage_summary_S.csv")
