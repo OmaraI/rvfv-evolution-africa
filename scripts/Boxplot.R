@@ -1,4 +1,4 @@
-## Distribution of protein-coding mutations per isolate across countries
+## Country-level distribution of protein-coding mutations across Africa
 
 # Set the working directory
 setwd("~/Desktop/Manuscripts/Data/R-Work/") # Adjust accordingly
