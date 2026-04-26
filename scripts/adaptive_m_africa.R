@@ -1,7 +1,6 @@
 
 ### Mutations assoiciated with viral evolution & host adaptation — Figure 6
 
-# ------------------------------
 # 1) Libraries & Data Setup
 # ------------------------------
 library(readr)
@@ -16,10 +15,15 @@ library(patchwork)
 library(scales)
 library(ggrepel)
 
+#Get working directory
+getwd()
 
-# ------------------------------
-# 1) Data Prep 
-# ------------------------------
+# Set WD
+setwd("~/Desktop/Manuscripts/Data/R-Work/Africa-Map_ViralEvolution_Virulence/")
+
+
+# 1) Data Preparation
+# -------------------
 metadata <- read_csv("~/Desktop/Manuscripts/Data/R-Work/Combined-Mutation.csv", show_col_types = FALSE)
 
 metadata_long <- metadata %>%
@@ -42,8 +46,8 @@ country_order <- mutation_summary %>% group_by(Country) %>% summarise(t = sum(n_
 mutation_summary <- mutation_summary %>% mutate(Country = factor(Country, levels = country_order), Mutation = factor(Mutation, levels = mutations))
 cb_palette <- c("N277S"="#1b9e77","N277D"="#d95f02","S278N"="#7570b3","I442S"="#e7298a","I442V"="#66a61e","V659A"="#e6ab02","N133S"="#a6761d")
 
-# ======================
-#### PANEL A — AFRICA MAP 
+
+## PANEL A — AFRICA MAP 
 # ======================
 africa <- ne_countries(scale = "medium", returnclass = "sf") %>% filter(region_un == "Africa")
 africa_data <- africa %>% left_join(mutation_summary %>% group_by(Country) %>% summarise(total = sum(n_sequences)), by = c("name" = "Country"))
@@ -73,23 +77,22 @@ map_plot <- ggplot(africa_data) +
     box.padding = 0.3,
     max.overlaps = Inf
   ) +
-  coord_sf(expand = FALSE) + 
+  coord_sf(xlim = c(-20, 55), ylim = c(-37, 38), expand = FALSE) +
   labs(title = "(a)", fill = "Total\nSequences") +
   theme_void() +
   theme(
-    plot.title = element_text(size = 32, face = "bold"),
-    legend.position = c(0.12, 0.25), # Tucked into bottom left
+    plot.title = element_text(size = 28, face = "bold"),
+    legend.position = c(0.14, 0.24),
     legend.background = element_rect(fill = alpha("white", 0.8), color = "grey80"),
-    legend.title = element_text(size = 15, face = "bold"),
-    legend.text = element_text(size = 13, face = "bold"),
-    # Aggressive margin to let the map use every pixel
-    plot.margin = margin(r = -110, l = 10, t = 10, b = 10) 
+    legend.title = element_text(size = 13, face = "bold"),
+    legend.text = element_text(size = 11, face = "bold"),
+    plot.margin = margin(r = 5, l = 5, t = 5, b = 5)
   ) +
-  guides(fill = guide_colorbar(barwidth = 1.8, barheight = 8, frame.colour = "black"))
+  guides(fill = guide_colorbar(barwidth = 1.4, barheight = 6, frame.colour = "black"))
 
-# =================------
+
 ## PANEL B — BAR PLOT 
-# =================------
+# =================
 bar_plot <- ggplot(mutation_summary, 
                    aes(x = Country, y = n_sequences, fill = Mutation)) +
   geom_col(position = position_dodge(width = 0.8), width = 0.75, color = "black", linewidth = 0.1) +
@@ -111,9 +114,9 @@ bar_plot <- ggplot(mutation_summary,
     panel.grid.major.x = element_blank()
   )
 
-# =================------------
+
 # PANEL C — TEMPORAL 
-# =================------------
+# =================
 timeline_df <- mutation_summary %>% group_by(Year, Mutation) %>% summarise(n = sum(n_sequences), .groups = "drop")
 
 timeline_plot <- ggplot(timeline_df, aes(x = Year, y = n, color = Mutation)) +
@@ -135,9 +138,8 @@ timeline_plot <- ggplot(timeline_df, aes(x = Year, y = n, color = Mutation)) +
     plot.margin = margin(l = -110, r = 10, t = 10, b = 10)
   )
 
-# =================--------------
 # ASSEMBLE FIGURE 
-# =================--------------
+# =================
 # 'AAAAAA' (6 units) vs 'BB' (2 units) makes the map much larger
 design <- "
   AAAAAABBB
@@ -153,3 +155,4 @@ fig_final <- wrap_plots(A = map_plot, B = bar_plot, C = timeline_plot, design = 
 ggsave("Figure6.png", plot = fig_final, width = 28, height = 14, dpi = 300)
 
 print(fig_final)
+
