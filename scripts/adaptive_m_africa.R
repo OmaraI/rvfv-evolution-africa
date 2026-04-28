@@ -1,5 +1,5 @@
 
-### Mutations assoiciated with viral evolution & host adaptation — Figure 6
+### Recurrent mutations assoiciated with viral evolution & host adaptation — Figure 6
 
 # 1) Libraries & Data Setup
 # ------------------------------
