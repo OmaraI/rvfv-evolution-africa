@@ -1,10 +1,11 @@
 
 
-## Host-state reconstruction & spillover on RVFV M segment   
+
+## Host-state reconstruction & spillover analysis on RVFV M segment   
 ## - Time-scaled tree (M segment)                            
 ## - Ancestral host reconstruction (ER model)                
 ## - Host→host transitions + network plot                    
-###############################################################
+
 
 ## 0. Load packages 
 library(readr)
@@ -97,9 +98,8 @@ print(spillover_into_human)
 write_csv(host_transition_table, "Host_Transitions_M_segment.csv")
 write_csv(spillover_into_human, "Spillover_to_Humans_M_segment.csv")
 
-###############################################################
-12. Plot host-to-host transition network with clear labels 
-###############################################################
+
+## 12. Plot host-to-host transition network
 
 g <- graph_from_data_frame(
   host_transition_table,
@@ -118,7 +118,7 @@ E(g)$width       <- scales::rescale(as.numeric(E(g)$n), to = c(0.8, 2.5))
 E(g)$arrow.size  <- 0.4
 E(g)$color       <- "grey65"
 
-# Fix self-loops 
+# Fix self-loops (this is the key part)
 loops <- which(is.loop(g))
 
 E(g)$color[loops] <- "grey75"   # lighter than other edges
@@ -151,12 +151,12 @@ plot(
   vertex.label.cex   = V(g)$label.cex,
   vertex.label.color = V(g)$label.color,
   vertex.color       = V(g)$color,
-  vertex.frame.color = NA,   #removes black borders
+  vertex.frame.color = NA,   # emoves black borders
   margin             = 0.35
 )
 
 ## Save high-resolution image 
-png("Host_Transition_Network_with_n_labels.png",
+png("Host_Transition_Network_with_n_labels.jpeg",
     width = 2000, height = 2000, res = 300)
 
 plot(
