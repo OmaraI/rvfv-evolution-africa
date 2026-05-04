@@ -1,6 +1,9 @@
 
-### Recurrent mutations assoiciated with viral evolution & host adaptation — Figure 6
 
+### Recurrent mutations associated with viral evolution & host adaptation — Figure 6
+
+
+# ------------------------------
 # 1) Libraries & Data Setup
 # ------------------------------
 library(readr)
@@ -21,9 +24,9 @@ getwd()
 # Set WD
 setwd("~/Desktop/Manuscripts/Data/R-Work/Africa-Map_ViralEvolution_Virulence/")
 
-
-# 1) Data Preparation
-# -------------------
+# -------------
+# 1) Data Prep 
+# -------------
 metadata <- read_csv("~/Desktop/Manuscripts/Data/R-Work/Combined-Mutation.csv", show_col_types = FALSE)
 
 metadata_long <- metadata %>%
@@ -46,8 +49,8 @@ country_order <- mutation_summary %>% group_by(Country) %>% summarise(t = sum(n_
 mutation_summary <- mutation_summary %>% mutate(Country = factor(Country, levels = country_order), Mutation = factor(Mutation, levels = mutations))
 cb_palette <- c("N277S"="#1b9e77","N277D"="#d95f02","S278N"="#7570b3","I442S"="#e7298a","I442V"="#66a61e","V659A"="#e6ab02","N133S"="#a6761d")
 
-
-## PANEL A — AFRICA MAP 
+# ======================
+#### PANEL A — AFRICA MAP 
 # ======================
 africa <- ne_countries(scale = "medium", returnclass = "sf") %>% filter(region_un == "Africa")
 africa_data <- africa %>% left_join(mutation_summary %>% group_by(Country) %>% summarise(total = sum(n_sequences)), by = c("name" = "Country"))
@@ -63,13 +66,13 @@ map_plot <- ggplot(africa_data) +
     trans  = "pseudo_log",
     breaks = c(2, 5, 10, 20, 50, 100),
     labels = label_number(accuracy = 1),
-    na.value = "#f0f0f0" 
+    na.value = "#f0f0f0"
   ) +
   geom_text_repel(
     data = active_countries,
     aes(label = name, geometry = geometry),
     stat = "sf_coordinates",
-    size = 5,             
+    size = 5,
     fontface = "bold",
     color = "black",
     bg.color = "white",
@@ -77,20 +80,50 @@ map_plot <- ggplot(africa_data) +
     box.padding = 0.3,
     max.overlaps = Inf
   ) +
-  coord_sf(xlim = c(-20, 55), ylim = c(-37, 38), expand = FALSE) +
+  coord_sf(
+    xlim = c(-18, 52),
+    ylim = c(-35, 38),
+    expand = FALSE
+  ) +
   labs(title = "(a)", fill = "Total\nSequences") +
   theme_void() +
   theme(
-    plot.title = element_text(size = 28, face = "bold"),
+    plot.title = element_text(size = 30, face = "bold"),
+    
     legend.position = c(0.14, 0.24),
-    legend.background = element_rect(fill = alpha("white", 0.8), color = "grey80"),
-    legend.title = element_text(size = 13, face = "bold"),
-    legend.text = element_text(size = 11, face = "bold"),
+    
+    legend.background = element_rect(
+      fill = alpha("white", 0.92),
+      color = NA   # ❗ removes box border completely
+    ),
+    
+    legend.title = element_text(
+      size = 22,
+      face = "bold"
+    ),
+    
+    legend.text = element_text(
+      size = 18,
+      face = "bold"
+    ),
+    
+    legend.key = element_blank(),  # ❗ removes key borders
+    
+    legend.key.size = unit(1.2, "cm"),
+    
     plot.margin = margin(r = 5, l = 5, t = 5, b = 5)
   ) +
-  guides(fill = guide_colorbar(barwidth = 1.4, barheight = 6, frame.colour = "black"))
+  guides(
+    fill = guide_colorbar(
+      barwidth = 3.0,
+      barheight = 12,
+      frame.colour = NA,     # ❗ removes outer frame line
+      ticks.colour = NA,     # ❗ removes tick marks (optional but cleaner)
+      label.theme = element_text(size = 16, face = "bold")
+    )
+  )
 
-
+# =================
 ## PANEL B — BAR PLOT 
 # =================
 bar_plot <- ggplot(mutation_summary, 
@@ -109,12 +142,28 @@ bar_plot <- ggplot(mutation_summary,
     axis.title.y = element_text(size = 18, face = "bold"),
     axis.text.y = element_text(size = 16, face = "bold", color = "black"),
     axis.text.x = element_text(angle = 45, hjust = 1, size = 15, face = "bold", color = "black"),
+    
+    legend.position = "right",
+    
+    legend.title = element_text(
+      size = 18,
+      face = "bold"
+    ),
+    
+    legend.text = element_text(
+      size = 16,
+      face = "bold"
+    ),
+    
+    legend.key.size = unit(1.5, "lines"),
+    
     plot.margin = margin(l = -110, r = 10, t = 10, b = 10),
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank()
   )
 
 
+# =================
 # PANEL C — TEMPORAL 
 # =================
 timeline_df <- mutation_summary %>% group_by(Year, Mutation) %>% summarise(n = sum(n_sequences), .groups = "drop")
@@ -133,26 +182,52 @@ timeline_plot <- ggplot(timeline_df, aes(x = Year, y = n, color = Mutation)) +
   theme_minimal(base_size = 16) +
   theme(
     plot.title = element_text(size = 24, face = "bold"),
-    axis.title = element_text(size = 18, face = "bold"),
-    axis.text = element_text(size = 16, face = "bold", color = "black"),
+    
+    axis.title = element_text(
+      size = 18,
+      face = "bold"
+    ),
+    
+    axis.text = element_text(
+      size = 16,
+      face = "bold",
+      color = "black"
+    ),
+    
+    legend.position = "right",
+    
+    legend.title = element_text(
+      size = 18,
+      face = "bold"
+    ),
+    
+    legend.text = element_text(
+      size = 16,
+      face = "bold"
+    ),
+    
+    legend.key.size = unit(1.5, "lines"),
+    
     plot.margin = margin(l = -110, r = 10, t = 10, b = 10)
   )
 
+
+# ================
 # ASSEMBLE FIGURE 
-# =================
+# ================
 # 'AAAAAA' (6 units) vs 'BB' (2 units) makes the map much larger
 design <- "
-  AAAAAABBB
-  AAAAAACCC
+AAAAAABBB
+AAAAAACCC
 "
 
 fig_final <- wrap_plots(A = map_plot, B = bar_plot, C = timeline_plot, design = design)
+
+print(fig_final)
 
 # -------------
 # Final Save
 # -------------
 # Increased width to 28 to ensure the legend on the far right isn't squeezed
-ggsave("Figure6.png", plot = fig_final, width = 28, height = 14, dpi = 300)
-
-print(fig_final)
+ggsave("Figure6.jpeg", plot = fig_final, width = 28, height = 14, dpi = 300)
 
