@@ -1,4 +1,4 @@
-### Phylogentic Inference:
+### Phylo Inference:
 
 RVFV M segment 
 # Tools needed:
