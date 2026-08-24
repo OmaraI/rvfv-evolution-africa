@@ -1,4 +1,4 @@
-## Phylogenetic Visualization/Annotation
+## Phylo Viz
 
 
 ## Load required libraries
